@@ -42,17 +42,30 @@ class ViewController: UIViewController {
         let page1 = Page(number: 1, text: "Text for first page")
         let page2 = Page(number: 2, text: "This is text for second page")
         
-        //print(page1.text)
-        //print(page2.text)
-        
         let pages = [page1, page2]
         
         let book = Book(title: "Steve Job", author: "Walter Isaacson", pages: pages)
-        //print(book.title, book.author)
-        print("Title: \(book.title), Author : \(book.author)");
         
-        let firstPage = book.pages[0];
-        print(firstPage.text);
+        // for-loop
+        //for page in book.pages{
+        //    if page.number == 1{
+        //        print(page.text);
+        //    }
+        //}
+        
+        let book2 = Book(title: "Bill Gates: A Biography", author: "Michael Bacraft", pages: [
+            Page(number: 1, text: "Text for page 1"),
+            Page(number: 2, text: "Text for page 2"),
+            Page(number: 3, text: "Text for page 3"),
+            Page(number: 4, text: "Text for page 4"),
+            ]);
+        
+        for book in [book, book2] {
+            print("Book [" + book.title + "]");
+            for page in book.pages{
+                print(" Page number : " + String(page.number) + "; text : " + page.text)
+            }
+        }
     }
 
 }
