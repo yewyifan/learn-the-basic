@@ -32,6 +32,8 @@ class Page{
 
 class ViewController: UIViewController {
 
+    var books : [Book]?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -39,19 +41,16 @@ class ViewController: UIViewController {
         view.backgroundColor = .red
         //can provide custom code starting here
         
+        setupBooks()
+    }
+    
+    func setupBooks(){
         let page1 = Page(number: 1, text: "Text for first page")
         let page2 = Page(number: 2, text: "This is text for second page")
         
         let pages = [page1, page2]
         
         let book = Book(title: "Steve Job", author: "Walter Isaacson", pages: pages)
-        
-        // for-loop
-        //for page in book.pages{
-        //    if page.number == 1{
-        //        print(page.text);
-        //    }
-        //}
         
         let book2 = Book(title: "Bill Gates: A Biography", author: "Michael Bacraft", pages: [
             Page(number: 1, text: "Text for page 1"),
@@ -60,7 +59,36 @@ class ViewController: UIViewController {
             Page(number: 4, text: "Text for page 4"),
             ]);
         
-        for book in [book, book2] {
+        self.books = [book, book2]
+        
+        /* 2 ways to use ? operator safely */
+        
+        /* Way 1 */
+        // printBookForLoopWay1()
+        
+        /* Way 2 */
+        // printBookForLoopWay2()
+        
+    }
+    
+    func printBookForLoopWay1(){
+        if let unwrappedBooks = self.books {
+            // ! operator is needed for ? property
+            // ! operator is very unsafe
+            //for book in self.books! {
+            for book in unwrappedBooks {
+                print("Book [" + book.title + "]");
+                for page in book.pages{
+                    print(" Page number : " + String(page.number) + "; text : " + page.text)
+                }
+            }
+        }
+    }
+    
+    func printBookForLoopWay2(){
+        guard let books = self.books else { return }
+        
+        for book in books {
             print("Book [" + book.title + "]");
             for page in book.pages{
                 print(" Page number : " + String(page.number) + "; text : " + page.text)
